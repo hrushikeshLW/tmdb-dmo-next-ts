@@ -1,9 +1,11 @@
-import TopRatedMovie from "./(modules)/(movies)/movies/TopRatedMovie";
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
-  return (
-    <div>
-      <TopRatedMovie />
-    </div>
-  );
+  const router = useRouter();
+  useEffect(() => {
+    router.replace("/home");
+  }, [router]);
+  return <></>;
 }

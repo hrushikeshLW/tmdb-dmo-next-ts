@@ -5,7 +5,7 @@ import { SortOrder } from "@/__generated__/graphql";
 import Image from "next/image";
 import { Card, Flex } from "antd";
 import { useRouter } from "next/navigation";
-import { LIST_MOVIES } from "@/app/auth/login/graphql/Query";
+import { LIST_MOVIES } from "../graphql/Query";
 
 export default function TopRatedMovie() {
   const router = useRouter();

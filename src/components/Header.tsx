@@ -2,14 +2,12 @@
 import { TOKEN } from "@/common/constant";
 import { Button, Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React from "react";
-import { start } from "repl";
 
 const AppHeader = () => {
   const router = useRouter();
-  const pathname = usePathname();
-  const token = localStorage.getItem(TOKEN);
+  const token = window?.localStorage?.getItem(TOKEN);
   return (
     <Header
       style={{
@@ -25,11 +23,11 @@ const AppHeader = () => {
       <Menu
         theme="dark"
         mode="horizontal"
-        defaultSelectedKeys={["home"]}
+        defaultSelectedKeys={["/"]}
         // selectedKeys={[start]}
         items={[
           {
-            key: "/",
+            key: "/home",
             label: "Home",
           },
           { key: "/movies-card", label: "Movies" },
