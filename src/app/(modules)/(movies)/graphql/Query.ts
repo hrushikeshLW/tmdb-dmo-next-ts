@@ -27,7 +27,7 @@ query movie($id: ID!) {
     adult
     budget
     castAndCrew{
-    id 
+    id
     name}
     countries{
     id
@@ -36,19 +36,19 @@ query movie($id: ID!) {
     }
     createdAt
     genres{
-    id 
-    name 
+    id
+    name
     }
     homePage
     id
     imageUrl
     languages{
-    id   
-languageCode   
+    id
+languageCode
 englishName  }
     movieCollection{
-    id 
-    name 
+    id
+    name
     posterPath
     backdropPath}
     movieImages{
@@ -74,6 +74,48 @@ englishName  }
     voteAverage
     voteCount
        }
+  }
+}
+`);
+
+export const GET_COUNTRIES = gql(`
+query countries {
+  countries {
+    data {
+      id
+      englishName
+    }
+  }
+}
+`);
+
+export const GET_LANGUAGES = gql(`
+query languages {
+  languages {
+    data {
+      id
+      englishName
+    }
+  }
+}
+`);
+
+export const GET_PRODUCTION_COMPANIES = gql(`
+query listProductionCompanies {
+  listProductionCompanies {
+    data {
+      id
+      name
+    }
+  }
+}
+`);
+
+export const GET_GENRES = gql(`
+query listGenre {
+  listGenre {
+      id
+      name
   }
 }
 `);

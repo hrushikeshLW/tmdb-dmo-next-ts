@@ -7,7 +7,7 @@ import React from "react";
 
 const AppHeader = () => {
   const router = useRouter();
-  const token = window?.localStorage?.getItem(TOKEN);
+  const token = localStorage?.getItem(TOKEN);
   return (
     <Header
       style={{
