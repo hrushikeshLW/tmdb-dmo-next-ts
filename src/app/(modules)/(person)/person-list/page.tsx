@@ -29,7 +29,7 @@ import { DELETE_PERSON } from "./graphql/Mutation";
 import Portal from "@/components/Portal";
 
 const PersonList = () => {
-  const [personList, setPersonList] = useState<Person | []>([]);
+  const [personList, setPersonList] = useState<Person[]>([]);
   const [skip, setSkip] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const router = useRouter();
@@ -39,7 +39,8 @@ const PersonList = () => {
 
   useEffect(() => {
     if (data?.listPersons?.data) {
-      setPersonList(data?.listPersons?.data);
+      const validPersons = (data.listPersons.data || []) as Person[];
+      setPersonList(validPersons);
     }
   }, [data]);
 
@@ -66,7 +67,7 @@ const PersonList = () => {
     },
   });
 
-  const confirm: PopconfirmProps["onConfirm"] = (e, id: string) => {
+  const confirm = (e: React.MouseEvent<HTMLElement> | undefined, id: string) => {
     e?.stopPropagation();
     deletePerson({
       variables: {
@@ -137,7 +138,9 @@ const PersonList = () => {
             title="Delete Person"
             description="Are you sure to delete this person?"
             onConfirm={(e) => {
-              confirm(e, record?.id);
+              if (record?.id) {
+                confirm(e, record?.id);
+              }
             }}
             onCancel={cancel}
             okText="Yes"

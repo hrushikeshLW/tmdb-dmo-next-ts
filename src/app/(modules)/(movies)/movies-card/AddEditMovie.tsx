@@ -23,6 +23,7 @@ import dayjs from "dayjs";
 import { map } from "lodash";
 import { CREATE_MOVIE, UPDATE_MOVIE } from "../graphql/Mutation";
 import Portal from "@/components/Portal";
+import { MovieInput, UpdateMovieInput } from "@/__generated__/graphql";
 
 const { TextArea } = Input;
 
@@ -78,7 +79,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
     }
   }, [data, form]);
 
-  const onFinish = (values: FormDataEvent) => {
+  const onFinish = (values: MovieInput | UpdateMovieInput) => {
     console.log("Form values:", values);
     if (movieId) {
       updateMovie({
@@ -92,7 +93,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
             genres: map(values?.genres, (id) => {
               id;
             }),
-          },
+          } as UpdateMovieInput,
         },
       });
     } else {
@@ -106,7 +107,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
             genres: map(values?.genres, (id) => {
               id;
             }),
-          },
+          } as MovieInput,
         },
       });
     }

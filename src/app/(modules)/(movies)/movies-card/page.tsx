@@ -130,7 +130,7 @@ export default function MovieCard() {
     debouncedSearch(value);
   };
 
-  const handleConfirm: PopconfirmProps["onConfirm"] = (e, id: string) => {
+  const confirm = (e: React.MouseEvent<HTMLElement> | undefined, id: string) => {
     console.log("first");
     e?.stopPropagation();
     deleteMovie({
@@ -222,8 +222,9 @@ export default function MovieCard() {
                   title="Delete Person"
                   description="Are you sure to delete this person?"
                   onConfirm={(e) => {
-                    e.stopPropagation();
-                    handleConfirm(record?.id);
+                    if (movie?.id) {
+                      confirm(e, movie?.id);
+                    }
                   }}
                   onCancel={cancel}
                   okText="Yes"

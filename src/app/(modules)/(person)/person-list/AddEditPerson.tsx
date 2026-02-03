@@ -18,6 +18,8 @@ import { CREATE_PERSON, UPDATE_PERSON } from "./graphql/Mutation";
 import { createPersonList } from "@/actions/create-action";
 import { useRouter } from "next/navigation";
 import Portal from "@/components/Portal";
+import { PersonInput, UpdatePersonInput } from "@/__generated__/graphql";
+import { values } from "lodash";
 
 const { TextArea } = Input;
 
@@ -64,12 +66,12 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
     }
   }, [data, form]);
 
-  const onFinish = (values: FormDataEvent) => {
+  const onFinish = (values: UpdatePersonInput | PersonInput) => {
     console.log("Form values:", values);
     const formattedValues = {
       ...values,
-      birthday: values?.birthday ? values?.birthday.format("YYYY-MM-DD") : null,
-      deathday: values?.deathday ? values?.deathday.format("YYYY-MM-DD") : null,
+      birthday: dayjs(values?.birthday).format("YYYY-MM-DD"),
+      deathday: dayjs(values?.deathday).format("YYYY-MM-DD"),
     };
 
     if (personId) {
@@ -82,7 +84,7 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
     } else {
       createPerson({
         variables: {
-          data: formattedValues,
+          data: formattedValues as PersonInput,
         },
       });
     }
