@@ -31,7 +31,7 @@ const Login = () => {
     emailPasswordLogIn({ variables: { data: values } });
   };
   return (
-    <Card style={{ maxWidth: 400, margin: "50px auto" }} title="Log in">
+    <Card className="login-card" title="Log in">
       <Form layout="vertical" onFinish={onFinish}>
         <Form.Item label="Email" name="email">
           <Input type="email" />

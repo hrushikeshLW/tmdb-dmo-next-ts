@@ -89,7 +89,7 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
   };
 
   return (
-    <div style={{ padding: "24px", backgroundColor: "white" }}>
+    <div className="padding-24-bg-white">
       <Portal portalId="breadcrumbs">
         <Breadcrumb
           items={[
@@ -111,13 +111,7 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
           adult: false,
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "16px",
-          }}
-        >
+        <div className="form-grid-layout">
           <Form.Item
             label="TMDB ID"
             name="tmdbId"
@@ -135,11 +129,11 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
           </Form.Item>
 
           <Form.Item label="Birthday" name="birthday">
-            <DatePicker style={{ width: "100%" }} />
+            <DatePicker className="width-100-percent" />
           </Form.Item>
 
           <Form.Item label="Deathday" name="deathday">
-            <DatePicker style={{ width: "100%" }} />
+            <DatePicker className="width-100-percent" />
           </Form.Item>
 
           <Form.Item
@@ -176,7 +170,7 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
 
           <Form.Item label="Popularity" name="popularity">
             <InputNumber
-              style={{ width: "100%" }}
+              className="width-100-percent"
               min={0}
               step={0.1}
               placeholder="Enter popularity score"
@@ -200,19 +194,19 @@ const AddEditPerson = ({ personId }: { personId?: string }) => {
           <Select
             mode="tags"
             placeholder="Enter alternative names"
-            style={{ width: "100%" }}
+            className="width-100-percent"
           />
         </Form.Item>
 
         <Form.Item
           label="Biography"
           name="biography"
-          style={{ marginTop: "16px" }}
+          className="margin-top-16"
         >
           <TextArea rows={4} placeholder="Enter person biography" />
         </Form.Item>
 
-        <Form.Item style={{ marginTop: "24px" }}>
+        <Form.Item className="margin-top-24">
           <Button
             type="primary"
             htmlType="submit"

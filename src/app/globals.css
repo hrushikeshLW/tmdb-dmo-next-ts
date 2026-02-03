@@ -97,3 +97,92 @@ body {
   display: flex;
   align-items: center;
 }
+
+.header-menu {
+  flex: 1;
+  min-width: 0;
+}
+
+.layout-content-wrapper {
+  padding: 0px 24px;
+  min-height: 380px;
+}
+
+.login-card {
+  max-width: 400px;
+  margin: 50px auto;
+}
+
+.margin-bottom-10 {
+  margin-bottom: 10px;
+}
+
+.person-list-input-search {
+  max-width: 250px;
+  margin-right: 10px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.movies-sort-select {
+  width: 150px;
+}
+
+.movies-search-input {
+  max-width: 250px;
+}
+
+.movies-card-list-container {
+  height: 700px;
+  overflow-y: auto;
+}
+
+.movies-card-item {
+  margin-bottom: 16px;
+  cursor: pointer;
+  max-width: 300px;
+}
+
+.loading-container {
+  min-height: 100vh;
+}
+
+.movie-details-container {
+  padding: 24px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.movie-carousel-image-container {
+  height: 400px;
+  position: relative;
+}
+
+.object-fit-cover {
+  object-fit: cover;
+}
+
+.margin-top-16 {
+  margin-top: 16px;
+}
+
+.margin-top-24 {
+  margin-top: 24px;
+}
+
+.padding-24-bg-white {
+  padding: 24px;
+  background-color: white;
+}
+
+.form-grid-layout {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.width-100-percent {
+  width: 100%;
+}

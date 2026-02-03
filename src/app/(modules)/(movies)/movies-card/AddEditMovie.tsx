@@ -113,7 +113,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
   };
 
   return (
-    <div style={{ padding: "24px", backgroundColor: "white" }}>
+    <div className="padding-24-bg-white">
       <Portal portalId="breadcrumbs">
         <Breadcrumb
           items={[
@@ -137,13 +137,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
           adult: false,
         }}
       >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-            gap: "16px",
-          }}
-        >
+        <div className="form-grid-layout">
           <Form.Item
             label="Title"
             name="title"
@@ -175,7 +169,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
             name="releaseDate"
             rules={[{ required: true, message: "Please select release date" }]}
           >
-            <DatePicker style={{ width: "100%" }} />
+            <DatePicker className="width-100-percent" />
           </Form.Item>
 
           <Form.Item
@@ -184,7 +178,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
             rules={[{ required: true, message: "Please enter budget" }]}
           >
             <InputNumber
-              style={{ width: "100%" }}
+              className="width-100-percent"
               min={0}
               placeholder="Enter budget"
             />
@@ -196,7 +190,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
             rules={[{ required: true, message: "Please enter revenue" }]}
           >
             <InputNumber
-              style={{ width: "100%" }}
+              className="width-100-percent"
               min={0}
               placeholder="Enter revenue"
             />
@@ -208,7 +202,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
             rules={[{ required: true, message: "Please enter runtime" }]}
           >
             <InputNumber
-              style={{ width: "100%" }}
+              className="width-100-percent"
               min={0}
               placeholder="Enter runtime in minutes"
             />
@@ -330,7 +324,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
           <TextArea rows={4} placeholder="Enter movie overview" />
         </Form.Item>
 
-        <Form.Item style={{ marginTop: "24px" }}>
+        <Form.Item className="margin-top-24">
           <Button
             type="primary"
             htmlType="submit"

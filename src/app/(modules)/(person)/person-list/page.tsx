@@ -203,14 +203,14 @@ const PersonList = () => {
       <Card>
         <Flex
           gap="10px"
-          style={{ marginBottom: "10px" }}
+          className="margin-bottom-10"
           align="center"
           justify="space-between"
         >
           <Title level={3}>Person List</Title>
           <Flex>
             <Input
-              style={{ maxWidth: 250, marginRight: "10px" }}
+              className="person-list-input-search"
               placeholder="Search person..."
               value={searchTerm}
               onChange={handleSearch}
@@ -224,7 +224,7 @@ const PersonList = () => {
             </Button>
           </Flex>
         </Flex>
-        <div style={{ cursor: "pointer" }}>
+        <div className="cursor-pointer">
           <Table
             bordered
             columns={columns}

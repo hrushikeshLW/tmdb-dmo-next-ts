@@ -10,12 +10,7 @@ export default function RootLayout({
     <div>
       <AppHeader />
       <div id="breadcrumbs" className="breadcrumbs"></div>
-      <div
-        style={{
-          padding: "0px 24px",
-          minHeight: 380,
-        }}
-      >
+      <div className="layout-content-wrapper">
         {children}
       </div>
     </div>

@@ -30,11 +30,7 @@ export default function TopRatedMovie() {
             {data?.movies?.data?.map((movie) => (
               <Card
                 key={movie?.id}
-                style={{
-                  marginBottom: "16px",
-                  cursor: "pointer",
-                  maxWidth: 300,
-                }}
+                className="movies-card-item"
                 onClick={() => router.push(`/movies-card/${movie?.id}`)}
               >
                 <Image

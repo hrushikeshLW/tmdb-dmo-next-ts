@@ -152,7 +152,7 @@ export default function MovieCard() {
       <h2>Movies Card</h2>
       <Flex
         gap="10px"
-        style={{ marginBottom: "10px" }}
+        className="movies-card-flex-margin"
         align="center"
         justify="end"
       >
@@ -169,7 +169,7 @@ export default function MovieCard() {
           onChange={(value: ListMoviesSortFields) => {
             setSort((prev) => ({ ...prev, field: value }));
           }}
-          style={{ width: 150 }}
+          className="movies-sort-select"
           placeholder="Sort Field"
         />
         <Select
@@ -186,7 +186,7 @@ export default function MovieCard() {
           placeholder="Sort Order"
         />
         <Input
-          style={{ maxWidth: 250 }}
+          className="movies-search-input"
           placeholder="Search movies..."
           value={searchTerm}
           onChange={handleSearch}
@@ -200,18 +200,14 @@ export default function MovieCard() {
         </Button>
       </Flex>
       <div
-        style={{ height: "700px", overflowY: "auto" }}
+        className="movies-card-list-container"
         onScroll={handleScroll}
       >
         <Flex wrap="wrap" gap="20px">
           {movieList?.map((movie) => (
             <Card
               key={movie?.id}
-              style={{
-                marginBottom: "16px",
-                cursor: "pointer",
-                maxWidth: 300,
-              }}
+              className="movies-card-item"
               actions={[
                 <Button key="edit" shape="square">
                   <EditOutlined

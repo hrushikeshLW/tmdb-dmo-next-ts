@@ -26,7 +26,7 @@ const AppHeader = () => {
           { key: "movies-card", label: "Movies" },
           { key: "person-list", label: "Person" },
         ]}
-        style={{ flex: 1, minWidth: 0 }}
+        className="header-menu"
         onClick={(e) => {
           router.push(`/${e.key}`);
         }}
