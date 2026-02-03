@@ -1,18 +1,30 @@
 "use client";
 
-import { useLazyQuery } from "@apollo/client/react";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
 import {
   ListMoviesSortFields,
   Movie,
   SortOrder,
 } from "@/__generated__/graphql";
 import Image from "next/image";
-import { Button, Card, Flex, Input, Select, Spin } from "antd";
+import {
+  Breadcrumb,
+  Button,
+  Card,
+  Flex,
+  Input,
+  Popconfirm,
+  PopconfirmProps,
+  Select,
+  Spin,
+} from "antd";
 import { useRouter } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { map, debounce } from "lodash";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { LIST_MOVIES } from "../graphql/Query";
+import { DELETE_MOVIE } from "../graphql/Mutation";
+import Portal from "@/components/Portal";
 
 const { Meta } = Card;
 export default function MovieCard() {
@@ -26,6 +38,17 @@ export default function MovieCard() {
   });
   const [getMoviesList, { data, loading }] = useLazyQuery(LIST_MOVIES, {
     fetchPolicy: "network-only",
+  });
+
+  const [deleteMovie] = useMutation(DELETE_MOVIE, {
+    onCompleted: () => {
+      getMoviesList({
+        variables: {
+          filter: { skip: 0, limit: 10, searchTerm },
+          sort,
+        },
+      });
+    },
   });
 
   useEffect(() => {
@@ -106,8 +129,26 @@ export default function MovieCard() {
     setSearchTerm(value);
     debouncedSearch(value);
   };
+
+  const handleConfirm: PopconfirmProps["onConfirm"] = (e, id: string) => {
+    console.log("first");
+    e?.stopPropagation();
+    deleteMovie({
+      variables: {
+        id,
+      },
+    });
+  };
+
+  const cancel: PopconfirmProps["onCancel"] = (e) => {
+    e?.stopPropagation();
+  };
+
   return (
     <>
+      <Portal portalId="breadcrumbs">
+        <Breadcrumb items={[{ title: "Movies" }]} />
+      </Portal>
       <h2>Movies Card</h2>
       <Flex
         gap="10px"
@@ -172,19 +213,36 @@ export default function MovieCard() {
                 maxWidth: 300,
               }}
               actions={[
-                <EditOutlined
-                  key="edit"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/movies-card/${movie?.id}/edit`);
-                  }}
-                />,
-                <DeleteOutlined
+                <Button key="edit" shape="square">
+                  <EditOutlined
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/movies-card/${movie?.id}/edit`);
+                    }}
+                  />
+                </Button>,
+                <Popconfirm
                   key="delete"
-                  onClick={(e) => {
+                  title="Delete Person"
+                  description="Are you sure to delete this person?"
+                  onConfirm={(e) => {
                     e.stopPropagation();
+                    handleConfirm(record?.id);
                   }}
-                />,
+                  onCancel={cancel}
+                  okText="Yes"
+                  cancelText="No"
+                >
+                  <Button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                    danger
+                    shape="square"
+                  >
+                    <DeleteOutlined />
+                  </Button>
+                </Popconfirm>,
               ]}
               onClick={() => router.push(`/movies-card/${movie?.id}`)}
               cover={

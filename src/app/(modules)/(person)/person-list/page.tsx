@@ -1,16 +1,19 @@
 "use client";
 import {
+  Breadcrumb,
   Button,
   Card,
   Flex,
   Input,
+  Popconfirm,
+  PopconfirmProps,
   Space,
   Table,
   TablePaginationConfig,
 } from "antd";
 import React, { useEffect, useMemo, useState } from "react";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { useLazyQuery } from "@apollo/client/react";
+import { useLazyQuery, useMutation } from "@apollo/client/react";
 import { GET_PERSONS } from "./graphql/Query";
 import {
   ListPersonsSortFields,
@@ -22,6 +25,8 @@ import dayjs from "dayjs";
 import Title from "antd/es/typography/Title";
 import { useRouter } from "next/navigation";
 import { ColumnsType } from "antd/es/table";
+import { DELETE_PERSON } from "./graphql/Mutation";
+import Portal from "@/components/Portal";
 
 const PersonList = () => {
   const [personList, setPersonList] = useState<Person | []>([]);
@@ -46,6 +51,33 @@ const PersonList = () => {
       },
     });
   }, []);
+
+  const [deletePerson] = useMutation(DELETE_PERSON, {
+    onCompleted: () => {
+      getPersons({
+        variables: {
+          filter: { skip, limit: 10, searchTerm },
+          sort: {
+            order: SortOrder.Desc,
+            field: ListPersonsSortFields.UpdatedAt,
+          },
+        },
+      });
+    },
+  });
+
+  const confirm: PopconfirmProps["onConfirm"] = (e, id: string) => {
+    e?.stopPropagation();
+    deletePerson({
+      variables: {
+        id,
+      },
+    });
+  };
+
+  const cancel: PopconfirmProps["onCancel"] = (e) => {
+    e?.stopPropagation();
+  };
 
   const columns: ColumnsType<Person> = [
     {
@@ -76,13 +108,14 @@ const PersonList = () => {
       title: "Known For Department",
       dataIndex: "knownForDepartment",
       key: "knownForDepartment",
+      render: (text: string) => <div>{text || "-"}</div>,
     },
     {
       title: "Birthday",
       dataIndex: "birthday",
       key: "birthday",
       render: (text: string) => (
-        <div>{dayjs(text).format("MM/DD/YYYY") || "-"}</div>
+        <div>{text ? dayjs(text).format("MM/DD/YYYY") : "-"}</div>
       ),
     },
     {
@@ -93,15 +126,32 @@ const PersonList = () => {
           <Button
             type="primary"
             shape="circle"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               router.push(`/person-list/${record?.id}/edit`);
             }}
           >
             <EditOutlined />
           </Button>
-          <Button type="primary" danger shape="circle">
-            <DeleteOutlined />
-          </Button>
+          <Popconfirm
+            title="Delete Person"
+            description="Are you sure to delete this person?"
+            onConfirm={(e) => {
+              confirm(e, record?.id);
+            }}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button
+              type="primary"
+              danger
+              shape="circle"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <DeleteOutlined />
+            </Button>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -144,8 +194,12 @@ const PersonList = () => {
     setSearchTerm(value);
     debouncedSearch(value);
   };
+
   return (
     <>
+      <Portal portalId="breadcrumbs">
+        <Breadcrumb items={[{ title: "Person" }]} />
+      </Portal>
       <Card>
         <Flex
           gap="10px"
@@ -170,18 +224,25 @@ const PersonList = () => {
             </Button>
           </Flex>
         </Flex>
-        <Table
-          bordered
-          columns={columns}
-          dataSource={personList as Person[]}
-          loading={loading}
-          rowKey={(obj) => obj?.id || ""}
-          onChange={handleTableChange}
-          pagination={{
-            showSizeChanger: false,
-            total: data?.listPersons?.count || 0,
-          }}
-        />
+        <div style={{ cursor: "pointer" }}>
+          <Table
+            bordered
+            columns={columns}
+            dataSource={personList as Person[]}
+            loading={loading}
+            rowKey={(obj) => obj?.id || ""}
+            onChange={handleTableChange}
+            onRow={(record) => {
+              return {
+                onClick: () => router.push(`/person-list/${record?.id}`),
+              };
+            }}
+            pagination={{
+              showSizeChanger: false,
+              total: data?.listPersons?.count || 0,
+            }}
+          />
+        </div>
       </Card>
     </>
   );

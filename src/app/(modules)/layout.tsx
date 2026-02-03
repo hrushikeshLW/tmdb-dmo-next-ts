@@ -1,7 +1,4 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import ".././globals.css";
-import { Breadcrumb } from "antd";
 import AppHeader from "@/components/Header";
 
 export default function RootLayout({
@@ -12,13 +9,10 @@ export default function RootLayout({
   return (
     <div>
       <AppHeader />
-      <Breadcrumb
-        style={{ margin: "16px 0", background: "#fff", padding: "8px" }}
-        items={[{ title: "Home" }, { title: "List" }, { title: "App" }]}
-      />
+      <div id="breadcrumbs" className="breadcrumbs"></div>
       <div
         style={{
-          padding: 24,
+          padding: "0px 24px",
           minHeight: 380,
         }}
       >

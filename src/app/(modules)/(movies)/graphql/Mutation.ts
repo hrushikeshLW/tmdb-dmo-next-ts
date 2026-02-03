@@ -13,3 +13,11 @@ mutation updateMovie($id: ID!, $data: UpdateMovieInput) {
     message
 }}
     `);
+
+export const DELETE_MOVIE = gql(`
+  mutation deleteMovie($id: ID!) {
+    deleteMovie(id: $id) {
+      message
+    }
+  }
+`);

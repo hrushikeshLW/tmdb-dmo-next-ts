@@ -24,3 +24,27 @@ export const GET_PERSONS = gql(`
   }
 }
     `);
+
+export const GET_PERSON = gql(`
+  query Person($id: ID!) {
+    person(id: $id) {
+      message
+      data {
+        id
+        tmdbId
+        name
+        birthday
+        deathday
+        knownForDepartment
+        alsoKnownAs
+        gender
+        biography
+        popularity
+        placeOfBirth
+        profilePath
+        homePage
+        adult
+      }
+    }
+  }
+`);

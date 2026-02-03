@@ -1,7 +1,8 @@
 import React from "react";
+import AddEditPerson from "../AddEditPerson";
 
 const CreatePerson = () => {
-  return <div>CreatePerson</div>;
+  return <AddEditPerson />;
 };
 
 export default CreatePerson;

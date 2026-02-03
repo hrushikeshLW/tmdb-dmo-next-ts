@@ -2,11 +2,12 @@
 import { useQuery } from "@apollo/client/react";
 import React, { use } from "react";
 import { GET_MOVIE } from "../../graphql/Query";
-import { Carousel, Tag, Spin, Typography, Space, Flex } from "antd";
+import { Carousel, Tag, Spin, Typography, Space, Flex, Breadcrumb } from "antd";
 import { StarFilled } from "@ant-design/icons";
 import Image from "next/image";
 import { Images, Language, Movie } from "@/__generated__/graphql";
 import dayjs from "dayjs";
+import Portal from "@/components/Portal";
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -52,6 +53,16 @@ const MovieDetailsPage = ({
         borderRadius: "5px",
       }}
     >
+      <Portal portalId="breadcrumbs">
+        <Breadcrumb
+          items={[
+            { title: "Movies", href: "/movies-card" },
+            {
+              title: movie?.title,
+            },
+          ]}
+        />
+      </Portal>
       <Title>{movie?.title}</Title>
 
       <Carousel autoplay autoplaySpeed={3000}>

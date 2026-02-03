@@ -3,9 +3,10 @@
 import { useQuery } from "@apollo/client/react";
 import { SortOrder } from "@/__generated__/graphql";
 import Image from "next/image";
-import { Card, Flex } from "antd";
+import { Breadcrumb, Card, Flex } from "antd";
 import { useRouter } from "next/navigation";
 import { LIST_MOVIES } from "../graphql/Query";
+import Portal from "@/components/Portal";
 
 export default function TopRatedMovie() {
   const router = useRouter();
@@ -18,6 +19,9 @@ export default function TopRatedMovie() {
   });
   return (
     <div>
+      <Portal portalId="breadcrumbs">
+        <Breadcrumb items={[{ title: "Home" }]} />
+      </Portal>
       {loading && <p>Loading...</p>}
       {data?.movies && (
         <div>

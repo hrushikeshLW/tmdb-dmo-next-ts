@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ApolloWrapper } from "@/lib/apollo-provider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { ConfigProvider, theme } from "antd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,9 +33,6 @@ export default function RootLayout({
         <ApolloWrapper>
           <AntdRegistry>
             <div>{children}</div>
-            {/* <Footer style={{ textAlign: "center" }}>
-              TMDB ©{new Date().getFullYear()}
-            </Footer> */}
           </AntdRegistry>
         </ApolloWrapper>
       </body>

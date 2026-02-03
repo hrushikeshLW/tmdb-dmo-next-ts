@@ -20,12 +20,80 @@
 }
 
 body {
-  background: var(--background);
+  background: grey;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
 
-.movie-card-image{
+.movie-card-image {
   width: 400px;
   height: 300px;
+}
+
+.person-profile-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #e8e8e8;
+}
+
+.person-details-wrapper {
+  background-color: white;
+  border-radius: 5px;
+}
+
+.person-details-header {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.person-details-header-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.person-details-also-known-as {
+  margin-top: 8px;
+}
+
+.person-details-bio {
+  margin-top: 24px;
+}
+
+.width-percent-100 {
+  width: 100%;
+}
+
+.breadcrumbs .ant-breadcrumb {
+  margin: 16px 0;
+  background: grey;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 38px;
+  background: rgb(0, 21, 41);
+  padding: 0 10px;
+}
+
+.main-header .ant-menu {
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+.main-header .ant-menu .ant-menu-item {
+  height: 38px;
+  display: flex;
+  align-items: center;
 }

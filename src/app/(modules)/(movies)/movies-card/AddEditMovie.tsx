@@ -16,11 +16,13 @@ import {
   Select,
   Switch,
   Button,
+  Breadcrumb,
 } from "antd";
 import Title from "antd/es/typography/Title";
 import dayjs from "dayjs";
 import { map } from "lodash";
 import { CREATE_MOVIE, UPDATE_MOVIE } from "../graphql/Mutation";
+import Portal from "@/components/Portal";
 
 const { TextArea } = Input;
 
@@ -43,7 +45,7 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
       console.error("Error updating movie:", error);
     },
   });
-  const [getMovie, { data, loading }] = useLazyQuery(GET_MOVIE);
+  const [getMovie, { data }] = useLazyQuery(GET_MOVIE);
   const { data: countriesData, loading: countriesLoading } =
     useQuery(GET_COUNTRIES);
   const { data: languagesData, loading: languagesLoading } =
@@ -112,6 +114,20 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
 
   return (
     <div style={{ padding: "24px", backgroundColor: "white" }}>
+      <Portal portalId="breadcrumbs">
+        <Breadcrumb
+          items={[
+            { title: "Movies", href: "/movies-card" },
+            {
+              title: data?.movie?.data?.title || "-",
+              href: `/movies-card/${movieId}`,
+            },
+            {
+              title: movieId ? "Edit Movie" : "Add Movie",
+            },
+          ]}
+        />
+      </Portal>
       <Title level={3}>{movieId ? "Edit Movie" : "Add Movie"}</Title>
       <Form
         form={form}
@@ -315,7 +331,11 @@ const AddEditMovie = ({ movieId }: { movieId?: string }) => {
         </Form.Item>
 
         <Form.Item style={{ marginTop: "24px" }}>
-          <Button type="primary" htmlType="submit" loading={loading}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={createLoading || updateLoading}
+          >
             {movieId ? "Update Movie" : "Create Movie"}
           </Button>
         </Form.Item>
