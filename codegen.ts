@@ -1,7 +1,5 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
-import dotenv from "dotenv";
 
-dotenv.config();
 
 const config: CodegenConfig = {
   schema: "https://tmdb-server-dev.logicwind.co/graphql",
