@@ -25,6 +25,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { LIST_MOVIES } from "../graphql/Query";
 import { DELETE_MOVIE } from "../graphql/Mutation";
 import Portal from "@/components/Portal";
+import Title from "antd/es/typography/Title";
 
 const { Meta } = Card;
 export default function MovieCard() {
@@ -42,6 +43,7 @@ export default function MovieCard() {
 
   const [deleteMovie] = useMutation(DELETE_MOVIE, {
     onCompleted: () => {
+      setMovieList([])
       getMoviesList({
         variables: {
           filter: { skip: 0, limit: 10, searchTerm },
@@ -149,55 +151,58 @@ export default function MovieCard() {
       <Portal portalId="breadcrumbs">
         <Breadcrumb items={[{ title: "Movies" }]} />
       </Portal>
-      <h2>Movies Card</h2>
+
       <Flex
         gap="10px"
-        className="movies-card-flex-margin"
+        className="mb-10"
         align="center"
-        justify="end"
+        justify="space-between"
       >
-        <Select
-          options={map(
-            Object.values(ListMoviesSortFields),
-            (item: ListMoviesSortFields) => {
+        <Flex align="center"> <Title className="white-text" level={2}>Movies Card</Title></Flex>
+        <Flex gap="10px" align="center">
+          <Select
+            options={map(
+              Object.values(ListMoviesSortFields),
+              (item: ListMoviesSortFields) => {
+                return {
+                  label: item.toUpperCase(),
+                  value: item,
+                };
+              },
+            )}
+            onChange={(value: ListMoviesSortFields) => {
+              setSort((prev) => ({ ...prev, field: value }));
+            }}
+            className="movies-sort-select"
+            placeholder="Sort Field"
+          />
+          <Select
+            options={map(Object.values(SortOrder), (item: SortOrder) => {
               return {
                 label: item.toUpperCase(),
                 value: item,
               };
-            },
-          )}
-          onChange={(value: ListMoviesSortFields) => {
-            setSort((prev) => ({ ...prev, field: value }));
-          }}
-          className="movies-sort-select"
-          placeholder="Sort Field"
-        />
-        <Select
-          options={map(Object.values(SortOrder), (item: SortOrder) => {
-            return {
-              label: item.toUpperCase(),
-              value: item,
-            };
-          })}
-          onChange={(value: SortOrder) => {
-            setSort((prev) => ({ ...prev, order: value }));
-          }}
-          style={{ width: 150 }}
-          placeholder="Sort Order"
-        />
-        <Input
-          className="movies-search-input"
-          placeholder="Search movies..."
-          value={searchTerm}
-          onChange={handleSearch}
-          allowClear
-        />
-        <Button
-          type="primary"
-          onClick={() => router.push("/movies-card/create")}
-        >
-          Add Movie
-        </Button>
+            })}
+            onChange={(value: SortOrder) => {
+              setSort((prev) => ({ ...prev, order: value }));
+            }}
+            style={{ width: 150 }}
+            placeholder="Sort Order"
+          />
+          <Input
+            className="movies-search-input"
+            placeholder="Search movies..."
+            value={searchTerm}
+            onChange={handleSearch}
+            allowClear
+          />
+          <Button
+            type="primary"
+            onClick={() => router.push("/movies-card/create")}
+          >
+            Add Movie
+          </Button>        </Flex>
+
       </Flex>
       <div
         className="movies-card-list-container"

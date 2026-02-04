@@ -20,7 +20,7 @@
 }
 
 body {
-  background: grey;
+  background: black;
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -68,10 +68,10 @@ body {
 }
 
 .breadcrumbs .ant-breadcrumb {
-  margin: 16px 0;
-  background: grey;
+  margin: 8px 24px 10px 24px;
+  color: grey;
+  background: whitesmoke;
   padding: 8px;
-  border-radius: 5px;
 }
 
 .main-header {
@@ -83,8 +83,8 @@ body {
   align-items: center;
   justify-content: space-between;
   height: 38px;
-  background: rgb(0, 21, 41);
-  padding: 0 10px;
+  background: rgb(0, 21, 41) !important;
+  padding: 0 10px !important;
 }
 
 .main-header .ant-menu {
@@ -92,6 +92,7 @@ body {
   display: flex;
   align-items: center;
 }
+
 .main-header .ant-menu .ant-menu-item {
   height: 38px;
   display: flex;
@@ -109,8 +110,12 @@ body {
 }
 
 .login-card {
-  max-width: 400px;
+  width: 400px;
   margin: 50px auto;
+}
+
+.login-page {
+  height: 100vh;
 }
 
 .margin-bottom-10 {
@@ -142,7 +147,7 @@ body {
 .movies-card-item {
   margin-bottom: 16px;
   cursor: pointer;
-  max-width: 300px;
+  width: 355px;
 }
 
 .loading-container {
@@ -185,4 +190,17 @@ body {
 
 .width-100-percent {
   width: 100%;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.layout-card.ant-card .ant-card-body {
+  padding: 0;
+}
+
+.white-text.ant-typography {
+  color: white;
+  margin: 0;
 }

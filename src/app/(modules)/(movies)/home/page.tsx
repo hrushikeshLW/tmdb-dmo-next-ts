@@ -7,6 +7,7 @@ import { Breadcrumb, Card, Flex } from "antd";
 import { useRouter } from "next/navigation";
 import { LIST_MOVIES } from "../graphql/Query";
 import Portal from "@/components/Portal";
+import Title from "antd/es/typography/Title";
 
 export default function TopRatedMovie() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function TopRatedMovie() {
       {loading && <p>Loading...</p>}
       {data?.movies && (
         <div>
-          <h2>Movie List</h2>
+          <Flex align="center" > <Title className="white-text" level={2}>Movies Card</Title></Flex>
           <Flex wrap="wrap" gap="20px">
             {data?.movies?.data?.map((movie) => (
               <Card

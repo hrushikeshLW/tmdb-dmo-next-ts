@@ -6,9 +6,10 @@ const httpLink = new HttpLink({
   uri: process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT,
 });
 import { SetContextLink } from "@apollo/client/link/context";
+import Cookies from "js-cookie";
 
 const authLink = new SetContextLink(async ({ headers } = {}) => {
-  const userToken = localStorage.getItem(TOKEN);
+  const userToken = Cookies.get(TOKEN);
 
   let newHeaders = headers || {};
 

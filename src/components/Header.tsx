@@ -3,11 +3,11 @@ import { TOKEN } from "@/common/constant";
 import { Button, Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import Cookies from "js-cookie";
 
 const AppHeader = () => {
   const router = useRouter();
-  const token = localStorage?.getItem(TOKEN);
+  const token = Cookies.get(TOKEN);
   const pathname = usePathname();
   return (
     <Header className="main-header">
@@ -37,9 +37,13 @@ const AppHeader = () => {
             Login
           </Button>
         ) : (
-          <Button type="primary" onClick={() => localStorage.clear()}>
-            Logout
-          </Button>
+          <div>
+            <Button type="primary" onClick={() => {
+              Cookies.remove(TOKEN);
+              router.push("/auth/login");
+            }}>
+              Logout
+            </Button></div>
         )}
       </div>
     </Header>
