@@ -15,7 +15,6 @@ import {
 import Title from "antd/es/typography/Title";
 import dayjs from "dayjs";
 import { CREATE_PERSON, UPDATE_PERSON } from "./graphql/Mutation";
-import { createPersonList } from "@/actions/create-action";
 import { useRouter } from "next/navigation";
 import Portal from "@/components/Portal";
 import { PersonInput, UpdatePersonInput } from "@/__generated__/graphql";
