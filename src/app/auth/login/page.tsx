@@ -1,11 +1,12 @@
 "use client";
 import { useMutation } from "@apollo/client/react";
-import { Button, Card, Flex, Form, Input } from "antd";
+import { Button, Card, Flex, Form, Input, Divider } from "antd";
 import React from "react";
 import { LOGIN } from "./graphql/Mutation";
 import { TOKEN, USER } from "@/common/constant";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { signIn } from "next-auth/react";
 
 type formProps = {
   email: string;
@@ -30,6 +31,11 @@ const Login = () => {
     console.log("Success:", values);
     emailPasswordLogIn({ variables: { data: values } });
   };
+
+  const handleGitHubSignIn = async () => {
+    await signIn("github", { callbackUrl: "/home" });
+  };
+
   return (
     <Flex className="login-page" align="center" justify="center">
       <Card className="login-card" title="Log in">
@@ -51,6 +57,17 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
+
+        <Divider>OR</Divider>
+
+        <Button
+          type="default"
+          block
+          onClick={handleGitHubSignIn}
+          icon={<span>🔐</span>}
+        >
+          Sign in with GitHub
+        </Button>
       </Card></Flex>
   );
 };

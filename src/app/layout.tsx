@@ -4,6 +4,7 @@ import "./globals.css";
 import { ApolloWrapper } from "@/lib/apollo-provider";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider, theme } from "antd";
+import { AuthProvider } from "@/lib/auth-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,11 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ApolloWrapper>
-          <AntdRegistry>
-            <div>{children}</div>
-          </AntdRegistry>
-        </ApolloWrapper>
+        <AuthProvider>
+          <ApolloWrapper>
+            <AntdRegistry>
+              <div>{children}</div>
+            </AntdRegistry>
+          </ApolloWrapper>
+        </AuthProvider>
       </body>
     </html>
   );

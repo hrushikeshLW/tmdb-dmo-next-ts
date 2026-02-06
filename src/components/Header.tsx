@@ -1,13 +1,16 @@
 "use client";
-import { TOKEN } from "@/common/constant";
+import { TOKEN, USER } from "@/common/constant";
 import { Button, Menu } from "antd";
 import { Header } from "antd/es/layout/layout";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { useSession, signOut } from "next-auth/react";
 
 const AppHeader = () => {
   const router = useRouter();
   const token = Cookies.get(TOKEN);
+  const { data: session } = useSession();
+  const isAuthenticated = !!session || !!token;
   const pathname = usePathname();
   return (
     <Header className="main-header">
@@ -32,14 +35,16 @@ const AppHeader = () => {
         }}
       />
       <div>
-        {!token ? (
+        {!isAuthenticated ? (
           <Button type="primary" href="/auth/login">
             Login
           </Button>
         ) : (
           <div>
-            <Button type="primary" onClick={() => {
+            <Button type="primary" onClick={async () => {
               Cookies.remove(TOKEN);
+              Cookies.remove(USER);
+              await signOut({ redirect: false });
               router.push("/auth/login");
             }}>
               Logout
